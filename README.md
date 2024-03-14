@@ -304,3 +304,5 @@ This scenario tests the system's ability to handle a broad exploration starting 
 
 ## Acknowledgments:
 
+- https://www.linkedin.com/pulse/system-design-designing-web-crawler-shashank-singh-l1w4f/
+- https://medium.com/@tonywangcn/the-architecture-of-a-web-crawler-building-a-google-inspired-distributed-web-crawler-part-1-7f4281f9f539
