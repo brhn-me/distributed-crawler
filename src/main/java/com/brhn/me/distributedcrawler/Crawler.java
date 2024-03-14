@@ -44,14 +44,17 @@ public class Crawler implements ApplicationRunner {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3";
 
+    private final NodeRegistration nodeRegistration;
+
     private long visited = 0;
 
 
     @Autowired
-    public Crawler(URLQueueRedis urlQueue, Config config) {
+    public Crawler(URLQueueRedis urlQueue, Config config, NodeRegistration nodeRegistration) {
         this.urlQueue = urlQueue;
         this.config = config;
         this.dataDir = config.getDataDir();
+        this.nodeRegistration = nodeRegistration;
     }
 
     public void start() {
@@ -103,15 +106,18 @@ public class Crawler implements ApplicationRunner {
 
             String textContent = document.text();
             URL u = new URL(url);
-            Path hostDir = Paths.get(dataDir, u.getHost().toString().toLowerCase());
+            String host = u.getHost().toString().toLowerCase();
+            Path hostDir = Paths.get(dataDir, host);
             if (!Files.exists(hostDir)) {
                 Files.createDirectories(hostDir);
             }
-            String fileName = hashURL(url) + ".txt";
+            String hash = hashURL(url);
+            String fileName = hash + ".txt";
             Path filePath = hostDir.resolve(fileName);
 
             try (FileWriter writer = new FileWriter(filePath.toFile(), StandardCharsets.UTF_8)) {
                 writer.write(textContent);
+                nodeRegistration.sendFile(host, hash, textContent);
             }
             urlQueue.setVisited(url);
             visited++;
