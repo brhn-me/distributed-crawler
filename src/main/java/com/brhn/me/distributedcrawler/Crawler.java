@@ -61,6 +61,14 @@ public class Crawler implements ApplicationRunner {
             if (url != null && !url.isEmpty()) {
                 crawl(url);
             }
+            try {
+                logger.info("CRAWL STATS: QUEUED: {}, VISITED: {} ( BY THIS MACHINE: {})", urlQueue.getQueueSize(),
+                        urlQueue.getVisitedSize(), visited);
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                logger.error("Thread sleep interrupted: {}", e.getMessage());
+                Thread.currentThread().interrupt(); // Restore interrupted state
+            }
         }
     }
 

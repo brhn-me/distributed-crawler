@@ -56,7 +56,7 @@ public class NodeRegistration {
 
         try {
             restTemplate.postForObject(config.getRegistryServer() + "/heartbeat", entity, Void.class);
-            logger.info("Sending heartbeat...");
+            logger.debug("Sending heartbeat...");
         } catch (RestClientException e) {
             logger.error("Failed to send heartbeat to registry service: {}", e.getMessage());
         }

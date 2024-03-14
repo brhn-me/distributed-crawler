@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 public class URLQueueRedis {
 
     private static final String URL_QUEUE_KEY = "urlQueue";
+
+    private static final String QUEUED_URLS_KEY = "queuedUrls";
     private static final String VISITED_URLS_KEY = "visitedUrls";
 
     private final RedisTemplate<String, String> redisTemplate;
@@ -19,8 +21,12 @@ public class URLQueueRedis {
 
     public synchronized void addUrl(String url) {
         Boolean isVisited = redisTemplate.opsForSet().isMember(VISITED_URLS_KEY, url);
-        if (Boolean.FALSE.equals(isVisited)) {
+
+        Boolean isQueued = redisTemplate.opsForSet().isMember(QUEUED_URLS_KEY, url);
+
+        if (Boolean.FALSE.equals(isVisited) || Boolean.FALSE.equals(isQueued)) {
             redisTemplate.opsForList().rightPush(URL_QUEUE_KEY, url);
+            redisTemplate.opsForSet().add(QUEUED_URLS_KEY, url);
         }
     }
 
@@ -30,6 +36,7 @@ public class URLQueueRedis {
 
     public synchronized void setVisited(String url) {
         redisTemplate.opsForSet().add(VISITED_URLS_KEY, url);
+        redisTemplate.opsForSet().remove(QUEUED_URLS_KEY, url);
     }
 
     public synchronized long getQueueSize() {
