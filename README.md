@@ -1,5 +1,17 @@
 # Industry track
 
+## Project Team Members
+
+- **K H M Burhan Uddin** (ID: 2307264)
+- **Mubashar Ali** (ID: 2307351)
+
+## GitHub Repositories
+
+- **Distributed Crawler**: [https://github.com/brhn-me/distributed-crawler](https://github.com/brhn-me/distributed-crawler)
+- **Distributed Crawler Registry**: [https://github.com/brhn-me/distributed-crawler-registry](https://github.com/brhn-me/distributed-crawler-registry)
+
+
+
 ## Distributed Web Crawler
 
 ### About the project
