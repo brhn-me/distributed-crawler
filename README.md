@@ -7,10 +7,10 @@
 
 ## GitHub Repositories
 
-- **Distributed Crawler**: [https://github.com/brhn-me/distributed-crawler](https://github.com/brhn-me/distributed-crawler)
-- **Distributed Crawler Registry**: [https://github.com/brhn-me/distributed-crawler-registry](https://github.com/brhn-me/distributed-crawler-registry)
-
-
+- **Distributed Crawler
+  **: [https://github.com/brhn-me/distributed-crawler](https://github.com/brhn-me/distributed-crawler)
+- **Distributed Crawler Registry
+  **: [https://github.com/brhn-me/distributed-crawler-registry](https://github.com/brhn-me/distributed-crawler-registry)
 
 ## Distributed Web Crawler
 
@@ -31,6 +31,9 @@ to ensure data consistency.
 This project focuses on overcoming the challenges of parallel processing and distributed systems to significantly
 enhance the speed and scope of web crawling. It achieves efficient, scalable, and comprehensive data extraction,
 surpassing the limitations of single-device operations or vertical scaling strategies.
+
+![Distributed Crawler](images/cw1.jpeg)
+![Distributed Crawler](images/cw2.jpeg)
 
 ### Implemented components:
 
@@ -313,6 +316,8 @@ This scenario tests the system's ability to handle a broad exploration starting 
     - **Queue Size**: Reached at 300,000+ URLs.
     - **Visited URLs**: Managed to crawl around 30,000 unique URLs.
     - **Total Crawl Time**: Approximately 5 hours.
+
+![Distributed Crawler](images/cw3.jpeg)
 
 ## Acknowledgments:
 
