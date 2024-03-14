@@ -12,7 +12,7 @@ public class Config {
     @Value("${server.port}")
     private int port;
 
-
+    @Value("${data.dir}")
     private String dataDir;
 
     public String getRegistryServer() {

@@ -2,6 +2,8 @@ package com.brhn.me.distributedcrawler;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -24,6 +26,8 @@ public class NodeRegistration {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    private static final Logger logger = LoggerFactory.getLogger(NodeRegistration.class);
+
     @Autowired
     public NodeRegistration(Config config) {
         this.config = config;
@@ -34,11 +38,13 @@ public class NodeRegistration {
     @PostConstruct
     public void register() {
         restTemplate.postForObject(config.getRegistryServer() + "/register", node, CrawlerNode.class);
+        logger.info("Node registered successfully");
     }
 
     @PreDestroy
     public void deregister() {
         restTemplate.postForObject(config.getRegistryServer() + "/deregister", node.getNodeId(), Void.class);
+        logger.info("Node de-registered successfully");
     }
 
 
@@ -50,9 +56,9 @@ public class NodeRegistration {
 
         try {
             restTemplate.postForObject(config.getRegistryServer() + "/heartbeat", entity, Void.class);
+            logger.info("Sending heartbeat...");
         } catch (RestClientException e) {
-            System.err.println("Failed to send heartbeat to registry service: " + e.getMessage());
-            // Handle the error appropriately
+            logger.error("Failed to send heartbeat to registry service: {}", e.getMessage());
         }
     }
 }
