@@ -100,14 +100,18 @@ public class NodeRegistration {
 
             nodes.forEach(node -> {
                 if (!node.getNodeId().equals(this.node.getNodeId())) {
+                    // Construct the URL with protocol, host, and port
+                    String nodeUrl = "http://" + node.getAddress() + ":" + node.getPort() + "/receiveFile";
+
                     try {
-                        restTemplate.postForObject(node.getAddress() + ":" + node.getPort() + "/receiveFile", entity, String.class);
+                        restTemplate.postForObject(nodeUrl, entity, String.class);
                         logger.info("File sent successfully to node: {}", node.getNodeId());
                     } catch (RestClientException e) {
                         logger.error("Failed to send file to node {}: {}", node.getNodeId(), e.getMessage());
                     }
                 }
             });
+
         }
     }
 
